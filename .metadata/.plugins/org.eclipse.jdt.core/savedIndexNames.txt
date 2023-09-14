@@ -1,5 +1,4 @@
 INDEX VERSION 1.131+C:\Users\Casa\Desktop\CT\Algoritmia\4\Nueva carpeta\IA_Semana_04_Lab\.metadata\.plugins\org.eclipse.jdt.core
-1590841840.index
 2457825379.index
 263265558.index
 567361358.index

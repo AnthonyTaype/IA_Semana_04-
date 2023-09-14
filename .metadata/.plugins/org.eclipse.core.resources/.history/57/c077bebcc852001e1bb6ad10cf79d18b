@@ -125,26 +125,6 @@ public class Caja extends JFrame implements ActionListener {
 	}
 	
 	protected void actionPerformedBtnProcesar(ActionEvent arg0) {
-		double la, anch, alt, volumen, area;
-		la = Double.parseDouble(txtLargo.getText());
-		anch = Double.parseDouble(txtAncho.getText());
-		alt = Double.parseDouble(txtAlto.getText());
-
-		volumen = la * anch * alt;
-		area = 2 * (la * anch + la * alt + anch * alt);
-		
-		txtS.setText("Volumen    : " + decimalFormat(volumen) + "\n");
-		    imprimir("Area total : " + decimalFormat(area));
-	}
-
-	String decimalFormat(double p) {
-		return String.format("%.2f", p);
-	}
-	void imprimir(String s) {
-		txtS.append(s + "\n");
-	}
-
-		
 
 	}
 }
