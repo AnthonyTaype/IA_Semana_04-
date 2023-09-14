@@ -14,17 +14,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.UIManager;
 
-public class Fabrica extends JFrame implements ActionListener {
+public class Caja extends JFrame implements ActionListener {
 
 	private JPanel contentPane;
-	private JLabel lblPrecio;
-	private JTextField txtPrecio;
-	private JLabel lblCantidad;
-	private JTextField txtCantidad;
-	private JButton btnProcesar;
-	private JButton btnBorrar;
 	private JScrollPane scpScroll;
 	private JTextArea txtS;
+	private JLabel lblLargo;
+	private JTextField txtLargo;
+	private JLabel lblAncho;
+	private JTextField txtAncho;
+	private JLabel lblAlto;
+	private JTextField txtAlto;
+	private JButton btnProcesar;
+	private JButton btnBorrar;
 
 	/**
 	 * Launch the application.
@@ -38,7 +40,7 @@ public class Fabrica extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Fabrica frame = new Fabrica();
+					Caja frame = new Caja();
 					frame.setVisible(true);
 				}
 				catch (Exception e) {
@@ -51,8 +53,8 @@ public class Fabrica extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public Fabrica() {
-		setTitle("F\u00E1brica");
+	public Caja() {
+		setTitle("Caja");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 230);
 		contentPane = new JPanel();
@@ -60,40 +62,49 @@ public class Fabrica extends JFrame implements ActionListener {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		lblPrecio = new JLabel("Precio");
-		lblPrecio.setBounds(10, 11, 46, 14);
-		contentPane.add(lblPrecio);
-
-		txtPrecio = new JTextField();
-		txtPrecio.setBounds(66, 8, 86, 20);
-		contentPane.add(txtPrecio);
-		txtPrecio.setColumns(10);
-
-		lblCantidad = new JLabel("Cantidad");
-		lblCantidad.setBounds(10, 36, 46, 14);
-		contentPane.add(lblCantidad);
-
-		txtCantidad = new JTextField();
-		txtCantidad.setBounds(66, 33, 86, 20);
-		contentPane.add(txtCantidad);
-		txtCantidad.setColumns(10);
-
-		btnProcesar = new JButton("Procesar");
-		btnProcesar.addActionListener(this);
-		btnProcesar.setBounds(335, 7, 89, 23);
-		contentPane.add(btnProcesar);
-
-		btnBorrar = new JButton("Borrar");
-		btnBorrar.addActionListener(this);
-		btnBorrar.setBounds(335, 32, 89, 23);
-		contentPane.add(btnBorrar);
-
 		scpScroll = new JScrollPane();
-		scpScroll.setBounds(10, 64, 414, 117);
+		scpScroll.setBounds(10, 89, 414, 92);
 		contentPane.add(scpScroll);
 
 		txtS = new JTextArea();
 		scpScroll.setViewportView(txtS);
+		
+		lblLargo = new JLabel("Largo");
+		lblLargo.setBounds(10, 11, 46, 14);
+		contentPane.add(lblLargo);
+		
+		txtLargo = new JTextField();
+		txtLargo.setBounds(66, 8, 86, 20);
+		contentPane.add(txtLargo);
+		txtLargo.setColumns(10);
+		
+		lblAncho = new JLabel("Ancho");
+		lblAncho.setBounds(10, 36, 46, 14);
+		contentPane.add(lblAncho);
+		
+		txtAncho = new JTextField();
+		txtAncho.setBounds(66, 33, 86, 20);
+		contentPane.add(txtAncho);
+		txtAncho.setColumns(10);
+		
+		lblAlto = new JLabel("Alto");
+		lblAlto.setBounds(10, 61, 46, 14);
+		contentPane.add(lblAlto);
+		
+		txtAlto = new JTextField();
+		txtAlto.setBounds(66, 58, 86, 20);
+		contentPane.add(txtAlto);
+		txtAlto.setColumns(10);
+		
+		btnProcesar = new JButton("Procesar");
+		btnProcesar.addActionListener(this);
+		btnProcesar.setBounds(335, 7, 89, 23);
+		contentPane.add(btnProcesar);
+		
+		btnBorrar = new JButton("Borrar");
+		btnBorrar.addActionListener(this);
+		btnBorrar.setBounds(335, 32, 89, 23);
+		contentPane.add(btnBorrar);
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
@@ -104,38 +115,36 @@ public class Fabrica extends JFrame implements ActionListener {
 			actionPerformedBtnProcesar(arg0);
 		}
 	}
-
+	
 	protected void actionPerformedBtnBorrar(ActionEvent arg0) {
-		txtPrecio.setText("");
-		txtCantidad.setText("");
+		txtLargo.setText("");
+		txtAncho.setText("");
+		txtAlto.setText("");
 		txtS.setText("");
-		txtPrecio.requestFocus();
+		txtLargo.requestFocus();
+	}
+	
+	protected void actionPerformedBtnProcesar(ActionEvent arg0) {
+		double la, anch, alt, volumen, area;
+		la = Double.parseDouble(txtLargo.getText());
+		anch = Double.parseDouble(txtAncho.getText());
+		alt = Double.parseDouble(txtAlto.getText());
+
+		volumen = la * anch * alt;
+		area = 2 * (la * anch + la * alt + anch * alt);
+		
+		txtS.setText("Volumen    : " + decimalFormat(volumen) + "\n");
+		    imprimir("Area total : " + decimalFormat(area));
 	}
 
-	protected void actionPerformedBtnProcesar(ActionEvent arg0) {
-		double pre,impC,desc,impP;
-		int cant,lapi;
-		pre = Double.parseDouble(txtPrecio.getText());
-		cant = Integer.parseInt(txtCantidad.getText());
-		impC = pre*cant;
-		desc = impC * 0.07;
-		impP = impC - desc;
-		lapi = 2 * cant;
-		
-	txtS.setText("Importe compra     : " + decimalFormat(impC) + "\n");
-		imprimir("Importe descuento  : " + decimalFormat(desc));
-		imprimir("Importe pagar      : " + decimalFormat(impP));
-		imprimir("Lapiceros          : " + lapi);
-	}
-	String decimalFormat(double p){
-		return String.format("%.2f",p);
+	String decimalFormat(double p) {
+		return String.format("%.2f", p);
 	}
 	void imprimir(String s) {
 		txtS.append(s + "\n");
 	}
-}
-	}
-		
-	
-	
 
+		
+
+	}
+}

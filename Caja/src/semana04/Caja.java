@@ -143,8 +143,6 @@ public class Caja extends JFrame implements ActionListener {
 	void imprimir(String s) {
 		txtS.append(s + "\n");
 	}
-
-		
-
-	}
 }
+	}
+	
